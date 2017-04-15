@@ -192,7 +192,7 @@ DEFAULT_FROM_EMAIL = 'no-reply@xchan.pw'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'no-reply@xchan.pw'
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='123change')
 EMAIL_PORT = 587
 EMAIL_SUBJECT_PREFIX = '[XCHAN] '
 EMAIL_USE_TLS = True
