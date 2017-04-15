@@ -1,0 +1,17 @@
+{% extends 'home/_base.html' %}
+
+{% block title %}
+  {{ block.super }} - Stats
+{% endblock %}
+
+{% block content %}
+  <h1>Stats</h1>
+
+  <ul>
+    <li>Posts: {{ posts }}</li>
+    <li>Images: {{ images }}</li>
+    <li>Videos: {{ videos }}</li>
+    <li>Bans: {{ bans }}</li>
+    <li>Uptime: {{ uptime }}</li>
+  </ul>
+{% endblock %}

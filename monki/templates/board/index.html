@@ -1,0 +1,158 @@
+{% extends 'board/_base.html' %}
+
+{% load compress %}
+{% load staticfiles %}
+
+{% block extra_css %}
+  {% compress css %}
+    <link rel="stylesheet" href="{% static 'tooltipster/dist/css/tooltipster.bundle.css' %}">
+    <link rel="stylesheet" href="{% static '@claviska/jquery-dropdown/jquery.dropdown.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tooltipster-fuhrerchan.css' %}">
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/lib/jquery-expandable.scss' %}">
+  {% endcompress %}
+
+  {% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/board.scss' %}">
+  {% endcompress %}
+
+  <script>
+    window.app = {
+      board: "{{ board.directory|escapejs }}"
+      {% if thread %}, thread: "{{ thread.pk|escapejs }}"{% endif %}
+    }
+  </script>
+{% endblock %}
+
+{% block extra_js %}
+  {% compress js %}
+    <script src="{% static 'tooltipster/dist/js/tooltipster.bundle.js' %}"></script>
+    <script src="{% static '@claviska/jquery-dropdown/jquery.dropdown.js' %}"></script>
+    <script src="{% static 'js/lib/jquery-expandable.js' %}"></script>
+  {% endcompress %}
+
+  {% compress js %}
+    <script src="{% static 'js/board.js' %}"></script>
+  {% endcompress %}
+{% endblock %}
+
+{% block content %}
+  <section class="notification-area">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert {{ message.tags }}">
+          <strong>{{ message.tags|title }}!</strong> {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    {% for error in form.non_field_errors %}
+      <div class="alert error">
+        <strong>Error:</strong> {{ error }}</li>
+      </div>
+    {% endfor %}
+
+    {% for field in form %}
+      {% for error in field.errors %}
+        <div class="alert error">
+          <strong>{{ field.label}}:</strong> {{ error }}</li>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </section>
+
+  <section class="form-area">
+    <table>
+      <form method="post" id="id_form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if not board.force_anonymous %}
+          <tr>
+            <th>{{ form.name.label_tag }}</th>
+            <td>{{ form.name }}</td>
+          </tr>
+        {% endif %}
+        <tr>
+          <th>{{ form.email.label_tag }}</th>
+          <td>{{ form.email }}</td>
+        </tr>
+        <tr>
+          <th>{{ form.subject.label_tag }}</th>
+          <td>
+            {{ form.subject }}
+            <input type="submit" value="Submit" />
+            <span id="reply-to">
+              {% if thread %}
+                (reply to: {{ thread.pk }})
+              {% else %}
+                (new thread)
+              {% endif %}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <th>{{ form.message.label_tag }}</th>
+          <td>{{ form.message }}</td>
+        </tr>
+        <tr>
+          <th>{{ form.file.label_tag }}</th>
+          <td>{{ form.file }}</td>
+        </tr>
+        {{ form.board }}
+        {{ form.parent }}
+      </form>
+    </table>
+  </section>
+
+  <section class="post-area">
+    {% if thread %}
+      <article class="thread">
+        {% include 'board/_partials/post.html' with post=thread %}
+
+        {% for reply in thread.replies.all %}
+          {% include 'board/_partials/post.html' with post=reply %}
+        {% endfor %}
+      </article>
+    {% else %}
+      {% for post in object_list %}
+        <article class="thread">
+          {% include 'board/_partials/post.html' %}
+
+          {% for reply in post.replies.last_n %}
+            {% include 'board/_partials/post.html' with post=reply %}
+          {% endfor %}
+        </article>
+      {% endfor %}
+    {% endif %}
+  </section>
+
+  <section class="extras">
+    {% if not thread %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        {% else %}
+          <li>Previous</li>
+        {% endif %}
+
+        {% for page in page_obj.paginator.page_range|slice:":10" %}
+          {% if page != page_obj.number %}
+            <li><a href="?page={{ page }}">{{ page }}</a></li>
+          {% else %}
+            <li>{{ page }}</li>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% else %}
+          <li>Next</li>
+        {% endif %}
+      </ul>
+    {% else %}
+      [ <a href="{{ board.get_absolute_url }}">Back</a> ]
+    {% endif %}
+
+    <div class="float-right">
+      [ <a href="{% url 'catalog' board.directory %}">Catalog</a> ]
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load compress %}
+{% load staticfiles %}
+
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
+
+    {% compress css %}
+      <link rel="stylesheet" href="{% static 'normalize.css/normalize.css' %}">
+    {% endcompress %}
+
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    {% block body %}
+      <main>
+        {% block content %}{% endblock %}
+      </main>
+    {% endblock %}
+
+    {% compress js %}
+      <script src="{% static 'jquery/dist/jquery.js' %}"></script>
+    {% endcompress %}
+
+    {% block extra_js %}{% endblock %}
+
+    <script>
+      !function(B,O,t,N,E,T){B.GoogleAnalyticsObject=t;B[t]||(B[t]=function(){
+      (B[t].q=B[t].q||[]).push(arguments)});B[t].l=+new Date;E=O.createElement(N);
+      T=O.getElementsByTagName(N)[0];E.src='//www.google-analytics.com/analytics.js';
+      T.parentNode.insertBefore(E,T)}(window,document,'ga','script');
+
+      ga('create', 'UA-80190563-1', 'xchan.pw');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+<div class="post {% if not post.parent %}op{% else %}reply{% endif %} {% if post.has_file %}has-file{% endif %} {% if post.body_not_empty %}body-not-empty{% endif %}" id="post-{{ post.pk }}">
+  {% if not post.parent %}
+    {% include 'board/_partials/post/file.html' %}
+    {% include 'board/_partials/post/metadata.html' %}
+    {% include 'board/_partials/post/message.html' %}
+    {% include 'board/_partials/post/more.html' %}
+  {% else %}
+    {% include 'board/_partials/post/metadata.html' %}
+    {% include 'board/_partials/post/file.html' %}
+    {% include 'board/_partials/post/message.html' %}
+  {% endif %}
+</div>

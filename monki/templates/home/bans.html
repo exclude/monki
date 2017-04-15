@@ -1,0 +1,28 @@
+{% extends 'home/_base.html' %}
+
+{% block title %}
+  {{ block.super }} - Bans
+{% endblock %}
+
+{% block content %}
+  <table border="1">
+    <thead>
+      <th>IP Address</th>
+      <th>Reason</th>
+      <th>Placed at</th>
+      <th>Expires at</th>
+      <th>Banned By</th>
+    </thead>
+    <tbody>
+      {% for ban in object_list %}
+        <tr>
+          <td>{{ ban.ip_address }}</td>
+          <td>{{ ban.reason }}</td>
+          <td>{{ ban.created_at }}</td>
+          <td>{{ ban.expire_at|default:"Never" }}</td>
+          <td>{{ ban.banned_by }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

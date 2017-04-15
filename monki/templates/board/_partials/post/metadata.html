@@ -1,0 +1,46 @@
+<div class="metadata">
+  <div class="options">
+    <a href="#" class="dropdown" data-jq-dropdown="#jq-dropdown-{{ post.pk }}">
+      <i class="caret">&#x25bc;</i>
+    </a>
+    <div id="jq-dropdown-{{ post.pk }}" class="jq-dropdown">
+      <ul class="jq-dropdown-menu">
+        <li><a data-hide="{{ post.pk }}" href="#">Hide</a></li>
+        <li class="jq-dropdown-divider"></li>
+        <li><a href="{% url 'post-delete' post.pk %}">Delete</a></li>
+      </ul>
+    </div>
+  </div>
+
+  {% spaceless %}
+  <span class="subject">{{ post.subject }}</span>
+    {% if post.name %}
+      <span class="name">{{ post.name }}</span>
+    {% else %}
+      {% if not post.tripcode %}
+        <span class="name">{{ board.default_name }}</span>
+      {% endif %}
+    {% endif %}
+    {% if post.tripcode %}
+      <span class="tripcode">!{{ post.tripcode }}</span>
+    {% endif %}
+  {% endspaceless %}
+  <span class="timestamp">{{ post.created_at|date:"d/m/Y \@ H:i" }}</span>
+  <span class="no">
+    {% if post.parent %}
+      <a href="{{ post.parent.get_absolute_url }}#post-{{ post.pk }}" title="Permalink">No.</a>
+      <a href="{{ post.parent.get_absolute_url }}" class="quote-post" data-post-id="{{ post.pk }}" data-parent-id="{{ post.parent.pk }}" title="Quote">{{ post.pk }}</a>
+    {% else %}
+      <a href="{{ post.get_absolute_url }}" title="Permalink">No.</a>
+      <a href="{{ post.get_absolute_url }}" class="quote-post" data-post-id="{{ post.pk }}" data-parent-id="{{ post.pk }}" title="Quote">{{ post.pk }}</a>
+    {% endif %}
+  </span>
+
+  {% if post.locked %}
+    <span class="status">(locked)</span>
+  {% endif %}
+
+  {% if not thread and not post.parent %}
+    [<a href="{{ post.get_absolute_url }}">Reply</a>]
+  {% endif %}
+</div>

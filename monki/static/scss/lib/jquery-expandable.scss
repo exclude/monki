@@ -1,0 +1,19 @@
+.expandable {
+  &.thumbnail {
+    cursor: zoom-in;
+    transition: all 0.4s ease;
+
+    &:hover {
+      -webkit-filter: brightness(60%);
+              filter: brightness(60%);
+    }
+  }
+
+  &.fullsize {
+    cursor: crosshair;
+  }
+
+  &.loading {
+    opacity: 0.4;
+  }
+}

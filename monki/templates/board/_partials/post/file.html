@@ -1,0 +1,16 @@
+{% with post.content_object as file %}
+  {% if file %}
+    <div class="file">
+      <div class="fileinfo">
+        <div class="fileinfo">
+          File: <a href="{{ file.file.url }}" download="{{ file.original_filename }}">{{ file.filename }}</a>
+          ({{ file.size|filesizeformat }}, {{ file.width }}x{{ file.heigth }}, {{ file.original_filename }})
+        </div>
+
+      </div>
+      <div class="image">
+        {{ file.html|safe }}
+      </div>
+    </div>
+  {% endif %}
+{% endwith %}

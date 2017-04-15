@@ -1,0 +1,5 @@
+{% if not thread %}
+  {% if post.num_replies > 3 %}
+    <div class="more">There's {{ post.num_replies|add:"-3" }} posts omitted, click <a href="{{ post.get_absolute_url }}">here</a> to view.</div>
+  {% endif %}
+{% endif %}

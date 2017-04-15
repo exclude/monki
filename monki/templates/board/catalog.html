@@ -1,0 +1,33 @@
+{% extends 'board/_base.html' %}
+
+{% load compress %}
+{% load staticfiles %}
+
+{% block title %}Catalog - /{{ board.directory }}/ - {{ board.name }}{% endblock %}
+
+{% block description %}Catalog - {{ board.name }}{% endblock %}
+
+{% block extra_css %}
+  {% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/board.scss' %}">
+  {% endcompress %}
+{% endblock %}
+
+{% block extra_js %}
+  {% compress js %}
+    <script src="{% static 'js/catalog.js' %}"></script>
+  {% endcompress %}
+{% endblock %}
+
+{% block content %}
+  {% for thread in object_list %}
+    <a href="{{ thread.get_absolute_url }}">
+      {{ thread.content_object.html|safe }}
+    </a>
+  {% endfor %}
+
+
+  <section class="extras">
+    [ <a href="{{ board.get_absolute_url }}">Back</a> ]
+  </section>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'home/_base.html' %}
+
+{% block title %}
+  {{ block.super }} - Rules
+{% endblock %}
+
+{% block content %}
+  {% for rule in object_list %}
+    {{ rule.text|linebreaks }}
+
+    {% if not forloop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

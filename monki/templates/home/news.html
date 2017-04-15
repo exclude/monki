@@ -1,0 +1,22 @@
+{% extends 'home/_base.html' %}
+
+{% block title %}
+  {{ block.super }} - News
+{% endblock %}
+
+{% block content %}
+  {% for new in object_list %}
+    <small>
+      Posted at: {{ new.created_at }}
+      Updated at: {{ new.updated_at }}
+      Author: {{ new.author }}
+    </small>
+    <h1>{{ new.title }}</h1>
+
+    {{ new.text|linebreaks }}
+
+    {% if not forloop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

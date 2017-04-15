@@ -1,0 +1,20 @@
+<form action="{{ app_path }}" method="POST">
+  {% csrf_token %}
+
+  <table>
+    <tr>
+      <th>{{ form.username.label_tag }}</th>
+      <td>{{ form.username }}</td>
+    </tr>
+    <tr>
+      <th>{{ form.password.label_tag }}</th>
+      <td>{{ form.password }}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <input type="submit" value="Log In" />
+      </td>
+    </tr>
+  </table>
+</form>

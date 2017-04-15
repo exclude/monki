@@ -1,0 +1,5 @@
+{% if post.body_not_empty %}
+  <div class="message">
+    {{ post.message_html|safe }}
+  </div>
+{% endif %}

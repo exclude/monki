@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  xchan
+{% endblock %}
+
+{% block extra_css %}
+  <style type="text/css">
+    body{
+      margin: 40px auto;
+      max-width: 650px;
+      line-height: 1.6;
+      font-size: 18px;
+      color: #444;
+      padding: 0 10px
+    }
+
+    h1,
+    h2,
+    h3{
+      line-height: 1.2
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+  <header>
+    <h1>xchan</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="{% url 'index' %}">Home</a></li>
+      <li><a href="{% url 'news' %}">News</a></li>
+      <li><a href="{% url 'faq' %}">FAQ</a></li>
+      <li><a href="{% url 'rules' %}">Rules</a></li>
+      <li><a href="{% url 'bans' %}">Bans</a></li>
+      <li><a href="{% url 'stats' %}">Stats</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+{% endblock %}

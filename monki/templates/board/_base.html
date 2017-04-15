@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}/{{ board.directory }}/ - {{ board.name }}{% endblock %}
+
+{% block description %}{{ board.name }}{% endblock %}
+
+{% block body %}
+  <nav>
+    {% for category in categories %}
+      <ul>
+        {% for board in category.boards.all %}
+          <li>
+            <a href="{{ board.get_absolute_url }}" title="{{ board.name }}" data-dir="{{ board.directory }}">{{ board.directory }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+
+    <div class="home">
+      <ul>
+        <li><a href="{% url 'index' %}">Home</a></li>
+        {% if request.user.is_staff %}
+          <li><a href="{% url 'admin:index' %}">Admin</a></li>
+          <li><a href="#">Reports (0)</a></li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Logout</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <header>
+    {% if banner %}
+      <img src="{{ banner.image.url }}" alt="banner">
+    {% endif %}
+
+    <h4>/{{ board.directory }}/ - {{ board.name }}</h4>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p class="strike">Copyright &copy; 2009-2016 xchan. All rights reserved.</p>
+    <p>All trademarks and copyrights on this page are owned by their respective parties.</p>
+    <p>Images uploaded are the responsibility of the Poster. Comments are owned by the Poster.</p>
+  </footer>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'home/_base.html' %}
+
+{% block title %}
+  {{ block.super }} - Home
+{% endblock %}
+
+{% block content %}
+  {% for category in categories %}
+    <h3>{{ category }}</h3>
+
+    <ul>
+      {% for board in category.boards.all %}
+        <li><a href="{{ board.get_absolute_url }}">{{ board }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+{% endblock %}

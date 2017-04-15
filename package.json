@@ -1,0 +1,26 @@
+{
+  "name": "monki",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@claviska/jquery-dropdown": "^2.0.3",
+    "jquery": "^3.1.1",
+    "normalize.css": "^5.0.0",
+    "tooltipster": "^4.1.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/exclude/monki.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/exclude/monki/issues"
+  },
+  "homepage": "https://github.com/exclude/monki#readme"
+}

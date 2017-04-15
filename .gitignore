@@ -1,0 +1,15 @@
+*.pyc
+
+.env
+.venv
+.python-version
+.coverage
+
+db.sqlite3
+
+htmlcov/
+media-root/
+node_modules/
+static-root/
+log/
+venv/

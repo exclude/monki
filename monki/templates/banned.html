@@ -1,0 +1,26 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>You're banned!</title>
+</head>
+<body>
+  <h1>You're banned!</h1>
+
+  <img src="{% static 'img/sad-monkey.jpg' %}">
+
+  {% for ban in bans %}
+    <ul>
+        <li>Reason: {{ ban.reason }}</li>
+        <li>Expire at: {{ ban.expires_at|default:"Never" }}</li>
+        <li>Banned by: {{ ban.banned_by }}</li>
+    </ul>
+
+    {% if not forloop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+</body>
+</html>
